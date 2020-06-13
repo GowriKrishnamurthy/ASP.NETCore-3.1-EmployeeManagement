@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model EmployeeManagement.ViewModels.HomeDetailsViewModel
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h3>@Model.PageTitle</h3>
+   <div>
+        Name : @Model.Employee.Name
+    </div>
+    <div>
+        Email : @Model.Employee.Email
+    </div>
+    <div>
+        Department : @Model.Employee.Department
+    </div>
+</body>
+</html>

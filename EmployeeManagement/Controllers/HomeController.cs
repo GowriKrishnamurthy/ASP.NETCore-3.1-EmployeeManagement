@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using EmployeeManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
@@ -26,8 +27,13 @@ namespace EmployeeManagement.Controllers
 
         public ViewResult Details()
         {
-            Employee emp = employeeRepository.GetEmployee(1);
-            return View(emp);
+            Employee emp = employeeRepository.GetEmployee(2);
+
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel() { 
+                Employee = emp,
+                PageTitle = "Employee Details"
+            };          
+            return View(homeDetailsViewModel);
         }
     }
 }
