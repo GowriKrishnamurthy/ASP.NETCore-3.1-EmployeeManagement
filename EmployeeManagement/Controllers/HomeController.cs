@@ -19,10 +19,11 @@ namespace EmployeeManagement.Controllers
         { 
             this.employeeRepository = employeeRepository;
         }
-
-        public string Index()
+        public ViewResult Index()
         {
-            return employeeRepository.GetEmployee(1).Name;
+            IEnumerable<Employee> empList = employeeRepository.GetAllEmployee();
+
+            return View(empList);
         }
 
         public ViewResult Details()

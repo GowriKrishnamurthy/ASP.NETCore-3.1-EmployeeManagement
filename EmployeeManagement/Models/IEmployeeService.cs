@@ -8,5 +8,6 @@ namespace EmployeeManagement.Models
     public interface IEmployeeService
     {
         Employee GetEmployee(int Id);
+        IEnumerable<Employee> GetAllEmployee();
     }
 }
