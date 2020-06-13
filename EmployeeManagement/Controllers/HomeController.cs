@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
         private readonly IEmployeeService employeeRepository;
         
@@ -22,6 +22,12 @@ namespace EmployeeManagement.Controllers
         public string Index()
         {
             return employeeRepository.GetEmployee(1).Name;
+        }
+
+        public ViewResult Details()
+        {
+            Employee emp = employeeRepository.GetEmployee(1);
+            return View(emp);
         }
     }
 }
