@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeRepository: IEmployeeRepository
     {
         private List<Employee> employeeList;
-        public EmployeeService()
+        public EmployeeRepository()
         {
             employeeList = new List<Employee>() 
             {

@@ -12,10 +12,10 @@ namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEmployeeService employeeService;
+        private readonly IEmployeeRepository employeeService;
         
         // Constructor Injection
-        public HomeController(IEmployeeService employeeService)
+        public HomeController(IEmployeeRepository employeeService)
         { 
             this.employeeService = employeeService;
         }
