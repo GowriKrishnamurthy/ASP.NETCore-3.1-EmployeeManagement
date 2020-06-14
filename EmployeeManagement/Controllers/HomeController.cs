@@ -25,17 +25,7 @@ namespace EmployeeManagement.Controllers
 
             return View(empList);
         }
-
-        public ViewResult Details(int id)
-        {
-            Employee emp = employeeService.GetEmployee(id);
-
-            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel() { 
-                Employee = emp,
-                PageTitle = "Employee Details"
-            };          
-            return View(homeDetailsViewModel);
-        }
+         
         public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
@@ -46,10 +36,7 @@ namespace EmployeeManagement.Controllers
 
             return View(homeDetailsViewModel);
         }
-        public string Details(int? id, string name)
-        {
-            return "id = " + id.Value.ToString() + " and name = " + name;
-        }
+
         [HttpGet]
         public ViewResult Create()
         {
@@ -57,10 +44,14 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Create(Employee employee)
+        public IActionResult Create(Employee employee)
         {
-            Employee newEmployee = employeeService.Add(employee);
-            return RedirectToAction("details", new { id = newEmployee.Id });
+            if (ModelState.IsValid)
+            {
+                Employee newEmployee = employeeService.Add(employee);
+                return RedirectToAction("details", new { id = newEmployee.Id });
+            }
+            return View();
         }
     }
 }
