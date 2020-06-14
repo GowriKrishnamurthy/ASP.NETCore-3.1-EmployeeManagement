@@ -12,29 +12,55 @@ namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEmployeeService employeeRepository;
+        private readonly IEmployeeService employeeService;
         
         // Constructor Injection
-        public HomeController(IEmployeeService employeeRepository)
+        public HomeController(IEmployeeService employeeService)
         { 
-            this.employeeRepository = employeeRepository;
+            this.employeeService = employeeService;
         }
         public ViewResult Index()
         {
-            IEnumerable<Employee> empList = employeeRepository.GetAllEmployee();
+            IEnumerable<Employee> empList = employeeService.GetAllEmployee();
 
             return View(empList);
         }
 
-        public ViewResult Details()
+        public ViewResult Details(int id)
         {
-            Employee emp = employeeRepository.GetEmployee(2);
+            Employee emp = employeeService.GetEmployee(id);
 
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel() { 
                 Employee = emp,
                 PageTitle = "Employee Details"
             };          
             return View(homeDetailsViewModel);
+        }
+        public ViewResult Details(int? id)
+        {
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
+            {
+                Employee = employeeService.GetEmployee(id ?? 1),
+                PageTitle = "Employee Details"
+            };
+
+            return View(homeDetailsViewModel);
+        }
+        public string Details(int? id, string name)
+        {
+            return "id = " + id.Value.ToString() + " and name = " + name;
+        }
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Employee employee)
+        {
+            Employee newEmployee = employeeService.Add(employee);
+            return RedirectToAction("details", new { id = newEmployee.Id });
         }
     }
 }
